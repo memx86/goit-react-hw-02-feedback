@@ -42,28 +42,17 @@ class App extends Component {
   };
 
   render() {
-    const { good, neutral, bad } = this.state;
-    const stats = [
-      {
-        label: "good",
-        count: good,
-      },
-      {
-        label: "neutral",
-        count: neutral,
-      },
-      {
-        label: "bad",
-        count: bad,
-      },
-    ];
+    const stats = Object.entries(this.state).map(([label, count]) => ({
+      label,
+      count,
+    }));
     const extendedStats = this.makeExtendedStats(stats);
     return (
       <Fragment>
         <h1>Please leave feedback</h1>
         <Section>
           <Controls
-            options={["good", "neutral", "bad"]}
+            options={Object.keys(this.state)}
             onClick={this.changeState}
           />
         </Section>
